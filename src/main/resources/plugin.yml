@@ -1,5 +1,5 @@
 name: PoisonPlots
-version: '1.0'
+version: '1.1'
 description: "Originally PyrsPlots, expanded by ItzErpandX. A plot management plugin for Minecraft servers using WorldEdit."
 main: me.itzerpandx.PoisonPlots.PlotsPlugin
 api-version: '1.21'
