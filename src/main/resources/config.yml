@@ -1,0 +1,112 @@
+# $$$$$$$\            $$\                               $$$$$$$\  $$\            $$\
+# $$  __$$\           \__|                              $$  __$$\ $$ |           $$ |
+# $$ |  $$ | $$$$$$\  $$\  $$$$$$$\  $$$$$$\  $$$$$$$\  $$ |  $$ |$$ | $$$$$$\ $$$$$$\    $$$$$$$\
+# $$$$$$$  |$$  __$$\ $$ |$$  _____|$$  __$$\ $$  __$$\ $$$$$$$  |$$ |$$  __$$\\_$$  _|  $$  _____|
+# $$  ____/ $$ /  $$ |$$ |\$$$$$$\  $$ /  $$ |$$ |  $$ |$$  ____/ $$ |$$ /  $$ | $$ |    \$$$$$$\
+# $$ |      $$ |  $$ |$$ | \____$$\ $$ |  $$ |$$ |  $$ |$$ |      $$ |$$ |  $$ | $$ |$$\  \____$$\
+# $$ |      \$$$$$$  |$$ |$$$$$$$  |\$$$$$$  |$$ |  $$ |$$ |      $$ |\$$$$$$  | \$$$$  |$$$$$$$  |
+# \__|       \______/ \__|\_______/  \______/ \__|  \__|\__|      \__| \______/   \____/ \_______/
+
+# How often (in seconds) to autosave plot data to the database
+data-autosave: 300
+
+# How long a plot's expiry time can be extended to in days
+plot-max-rent: 7
+
+# How long should a player be forced to pay for when buying a plot in days (can't be larger than plot-max-rent)
+plot-start-rent: 1
+
+# Default amount of maximum members when making new plots
+plot-default-max-members: 5
+
+# Default rent that will be applied when making new plots
+# Rent is based on: plot-default-rent * plot-start-rent
+plot-default-rent: 10
+
+# Permission-based plot ownership limit
+# If enabled, players need permission poisonplots.own_plots.<number> to own multiple plots
+# Example: poisonplots.own_plots.1 = can own 1 plot, poisonplots.own_plots.5 = can own 5 plots
+# Set to false to disable this feature
+plot-ownership-limit-enabled: true
+
+# Messages configuration
+messages:
+  prefix: "<gold>[PoisonPlots]</gold> "
+  plot-created: "{prefix}<green>Created a new plot with id {id} using your WorldEdit selection</green>"
+  plot-deleted: "{prefix}<green>Deleted plot with id {id}</green>"
+  plot-not-found: "{prefix}<red>No plot with that id exists</red>"
+  plot-info-not-found: "{prefix}<red>No plot with that id exists\nStand inside a plot, look at a plot sign or specify valid plot id</red>"
+  plot-already-exists: "{prefix}<red>A plot with that id already exists</red>"
+  only-players: "{prefix}<red>Only players can use this subcommand</red>"
+  incorrect-usage: "{prefix}<red>Incorrect usage: {usage}</red>"
+  must-select-region: "{prefix}<red>You must select a region using WorldEdit first!</red>"
+  sign-set: "{prefix}<green>Set sign location of plot with id {id} to {x}, {y}, {z}</green>"
+  not-looking-at-sign: "{prefix}<red>You must be looking at a sign to use this command</red>"
+  max-members-set: "{prefix}<green>Set max members of plot with id {id} to {amount}</green>"
+  rent-set: "{prefix}<green>Set rent of plot with id {id} to {amount}</green>"
+  plot-time-set: "{prefix}<green>Set plot {id} time to {seconds} seconds</green>"
+  plot-time-added: "{prefix}<green>Added {seconds} seconds to plot {id}</green>"
+  plot-time-removed: "{prefix}<green>Removed {seconds} seconds from plot {id}</green>"
+  plot-time-modified-all: "{prefix}<green>{action} time for {count} plots by {seconds} seconds</green>"
+  must-be-owner: "{prefix}<red>Only the plot owner can do this</red>"
+  plot-abandoned: "{prefix}<green>You have permanently abandoned your plot</green>"
+  not-enough-currency: "{prefix}<red>You don't have enough currency to extend your plot's rent</red>"
+  plot-already-rented: "{prefix}<red>The plot is already rented for the longest amount of time it can</red>"
+  rent-extended: "{prefix}<green>Extended your plot rent for 1 day</green>"
+  permission-denied: "{prefix}<red>You don't have permission to use this command</red>"
+  no-access: "{prefix}<red>You don't have access to this plot</red>"
+  plot-expired: "{prefix}<red>Your plot expired!</red>"
+  not-enough-currency-rent: "{prefix}<red>You don't have enough currency to rent this plot</red>"
+  plot-rented: "{prefix}<green>You have rented this plot!</green>"
+  must-hold-item: "{prefix}<red>You must hold an item in your main hand</red>"
+  currency-set: "{prefix}<green>Currency set successfully!</green>"
+  currency-received: "{prefix}<green>You received the plot currency</green>"
+  plot-info: "{prefix}<yellow>Plot {id} | Owner: {owner} | Members: {members}/{maxMembers} | Rent: {rent} | Expires: {remaining}</yellow>"
+  player-not-found: "{prefix}<red>No player with that name exists</red>"
+  plot-owner-set: "{prefix}<green>Set owner of plot {id} to {player}</green>"
+  max-members-reached: "{prefix}<red>Max members reached</red>"
+  cannot-kick-owner: "{prefix}<red>Cannot kick the plot owner</red>"
+  plot-limit-exceeded: "{prefix}<red>You have reached the maximum number of plots you can own</red>"
+  no-plots-owned: "{prefix}<yellow>You don't own any plots</yellow>"
+  plots-header: "{prefix}<yellow>Your plots:</yellow>"
+  plot-entry: "<gray>{id}</gray> <white>({x},{y},{z})</white> - <green>Expires in {time}</green>"
+  saving-plots: "{prefix}<yellow>Saving all plots to database...</yellow>"
+  plots-saved: "{prefix}<green>✓ All plots saved successfully!</green>"
+  save-failed: "{prefix}<red>✗ Error saving plots! Check console.</red>"
+  reloading-config: "{prefix}<yellow>Reloading configuration...</yellow>"
+  config-reloaded: "{prefix}<green>✓ Configuration reloaded successfully!</green>"
+  reload-failed: "{prefix}<red>✗ Error reloading config! Check console.</red>"
+
+# Help message configuration
+help-message:
+  - "{prefix}<yellow>Available subcommands:</yellow>"
+  - "<gray>/{label} create <id></gray> - <gray>Create a plot</gray>"
+  - "<gray>/{label} delete <id></gray> - <gray>Delete a plot</gray>"
+  - "<gray>/{label} region <id></gray> - <gray>Set the region of a plot</gray>"
+  - "<gray>/{label} evict <id></gray> - <gray>Evict all players from a plot</gray>"
+  - "<gray>/{label} sign <id></gray> - <gray>Set the sign of a plot</gray>"
+  - "<gray>/{label} maxmembers <id> <amount></gray> - <gray>Set max members</gray>"
+  - "<gray>/{label} rent <id> <amount></gray> - <gray>Set the rent of a plot</gray>"
+  - "<gray>/{label} time <set|add|remove> <id|all> <seconds></gray> - <gray>Manage plot expiration time (in seconds)</gray>"
+  - "<gray>/{label} setcurrency</gray> - <gray>Set the plot currency</gray>"
+  - "<gray>/{label} getcurrency</gray> - <gray>Get the plot currency</gray>"
+  - "<gray>/{label} info [id]</gray> - <gray>Get info about a plot (or stand in one)</gray>"
+  - "<gray>/{label} myplots</gray> - <gray>View all plots you own</gray>"
+  - "<gray>/{label} bypass</gray> - <gray>Toggle protection bypass</gray>"
+  - "<gray>/{label} owner <id> <player></gray> - <gray>Change plot owner</gray>"
+  - "<gray>/{label} save</gray> - <gray>Force save all plots to database</gray>"
+  - "<gray>/{label} reload</gray> - <gray>Reload configuration</gray>"
+  - "<gray>/{label} help</gray> - <gray>Show this help message</gray>"
+
+# Sign lore configuration
+sign:
+  rented:
+    line0: "<green>RENTED PLOT</green>"
+    line1: "<green>{time}</green>"
+    line2: "<white>{owner}</white>"
+    line3: "<white>{members}/{maxMembers}</white>"
+  unrented:
+    line0: "<dark_red>UNRENTED PLOT</dark_red>"
+    line1: "<white>Rent | {rent}</white>"
+    line2: "<white>Max Players | {maxMembers}</white>"
+    line3: " "

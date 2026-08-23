@@ -1,0 +1,109 @@
+name: PoisonPlots
+version: '1.0'
+description: "Originally PyrsPlots, expanded by ItzErpandX. A plot management plugin for Minecraft servers using WorldEdit."
+main: me.itzerpandx.PoisonPlots.PlotsPlugin
+api-version: '1.21'
+authors: [Pyr, ItzErpandX]
+website: https://github.com/ItzErpandX
+depend: [WorldEdit]
+libraries:
+  - org.xerial:sqlite-jdbc:3.53.2.1
+commands:
+  plotmanager:
+    description: Main command for plot management
+    aliases: [plotman, pm, plots, plot, plotsmanager, poisonplots]
+    usage: /poisonplots <subcommand> [args]
+permissions:
+  poisonplots.command.*:
+    description: Grants access to all plot management commands
+    default: op
+    children:
+      - poisonplots.command.create
+      - poisonplots.command.delete
+      - poisonplots.command.region
+      - poisonplots.command.evict
+      - poisonplots.command.sign
+      - poisonplots.command.maxmembers
+      - poisonplots.command.rent
+      - poisonplots.command.time
+      - poisonplots.command.setcurrency
+      - poisonplots.command.getcurrency
+      - poisonplots.command.info
+      - poisonplots.command.myplots
+      - poisonplots.command.bypass
+      - poisonplots.command.owner
+      - poisonplots.command.save
+      - poisonplots.command.reload
+      - poisonplots.command.help
+  poisonplots.command.create:
+    description: Allows creating new plots
+    default: op
+  poisonplots.command.delete:
+    description: Allows deleting plots
+    default: op
+  poisonplots.command.region:
+    description: Allows setting plot regions
+    default: op
+  poisonplots.command.evict:
+    description: Allows evicting players from plots
+    default: op
+  poisonplots.command.sign:
+    description: Allows setting plot signs
+    default: op
+  poisonplots.command.maxmembers:
+    description: Allows setting max members for plots
+    default: op
+  poisonplots.command.rent:
+    description: Allows setting rent for plots
+    default: op
+  poisonplots.command.time:
+    description: Allows setting, adding, and removing plot time
+    default: op
+  poisonplots.command.setcurrency:
+    description: Allows setting the plot currency item
+    default: op
+  poisonplots.command.getcurrency:
+    description: Allows getting the plot currency item
+    default: op
+  poisonplots.command.info:
+    description: Allows viewing plot information
+    default: op
+  poisonplots.command.myplots:
+    description: Allows viewing your owned plots
+    default: true
+  poisonplots.command.bypass:
+    description: Allows using the bypass command
+    default: op
+  poisonplots.command.owner:
+    description: Allows changing plot owners
+    default: op
+  poisonplots.command.help:
+    description: Allows viewing the help message
+    default: true
+  poisonplots.command.save:
+    description: Allows saving all plots to database
+    default: op
+  poisonplots.command.reload:
+    description: Allows reloading the configuration
+    default: op
+  poisonplots.bypass:
+    description: Allows bypassing plot protection
+    default: op
+  poisonplots.own_plots.1:
+    description: Allows owning up to 1 plot
+    default: true
+  poisonplots.own_plots.5:
+    description: Allows owning up to 5 plots
+    default: false
+  poisonplots.own_plots.10:
+    description: Allows owning up to 10 plots
+    default: false
+  poisonplots.own_plots.25:
+    description: Allows owning up to 25 plots
+    default: false
+  poisonplots.own_plots.50:
+    description: Allows owning up to 50 plots
+    default: false
+  poisonplots.own_plots.100:
+    description: Allows owning up to 100 plots
+    default: false
