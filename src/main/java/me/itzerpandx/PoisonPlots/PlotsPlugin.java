@@ -77,7 +77,7 @@ public class PlotsPlugin extends JavaPlugin implements Listener {
                 pluginConfig.getAutoSaveInterval(),
                 pluginConfig.getAutoSaveInterval());
 
-        getLogger().info("PoisonPlots v1.0 has been enabled!");
+        getLogger().info("PoisonPlots v1.1 has been enabled!");
     }
 
     @Override
