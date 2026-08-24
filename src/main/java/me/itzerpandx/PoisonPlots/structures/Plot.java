@@ -173,37 +173,43 @@ public class Plot extends BukkitRunnable implements ConfigurationSerializable, L
         return remaining <= 0L ? "00:00:00" : DurationFormatUtils.formatDuration(remaining, "HH:mm:ss", true);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onInteract(PlayerInteractEvent event) {
-        if (isProtected(event.getPlayer(), event.getClickedBlock())) event.setCancelled(true);
+        handleProtection(event.getPlayer(), event.getClickedBlock(), event);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onBreak(BlockBreakEvent event) {
-        if (isProtected(event.getPlayer(), event.getBlock())) event.setCancelled(true);
+        handleProtection(event.getPlayer(), event.getBlock(), event);
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlace(BlockPlaceEvent event) {
-        if (isProtected(event.getPlayer(), event.getBlock())) event.setCancelled(true);
+        handleProtection(event.getPlayer(), event.getBlock(), event);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onLiquidPlace(PlayerBucketEmptyEvent event) {
-        if (isProtected(event.getPlayer(), event.getBlock())) event.setCancelled(true);
+        handleProtection(event.getPlayer(), event.getBlock(), event);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onLiquidBreak(PlayerBucketFillEvent event) {
-        if (isProtected(event.getPlayer(), event.getBlock())) event.setCancelled(true);
+        handleProtection(event.getPlayer(), event.getBlock(), event);
     }
 
-    private boolean isProtected(Player player, Block block) {
-        if (block == null || PlotsPlugin.INSTANCE.isBypassing(player)) return false;
-        if (region == null || !region.contains(Point.fromLocation(block.getLocation()))) return false;
-        if (hasAccess(player)) return false;
-        player.sendMessage(PlotsPlugin.INSTANCE.getPluginConfig().getMessageComponent("no-access"));
-        return true;
+    private void handleProtection(Player player, Block block, org.bukkit.event.Cancellable event) {
+        if (block == null || region == null) return;
+        if (!region.contains(Point.fromLocation(block.getLocation()))) return;
+
+        if (PlotsPlugin.INSTANCE.isBypassing(player) || hasAccess(player)) {
+            // Uncancel event previously cancelled by WorldGuard
+            event.setCancelled(false);
+        } else {
+            // Block unauthorized players even if WorldGuard permitted it
+            event.setCancelled(true);
+            player.sendMessage(PlotsPlugin.INSTANCE.getPluginConfig().getMessageComponent("no-access"));
+        }
     }
 
     @EventHandler
